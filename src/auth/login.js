@@ -13,7 +13,7 @@ function me(req, res) {
   const header = req.headers.authorization || '';
   const token = header.replace(/^Bearer /, '');
   try {
-    const payload = jwt.verify(token, secret());
+    const payload = jwt.verify(token, secret(), { algorithms: ['HS256'] });
     res.json({ user: payload.sub });
   } catch (err) {
     res.status(401).json({ error: 'invalid token' });
